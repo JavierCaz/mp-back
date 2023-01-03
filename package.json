@@ -1,5 +1,5 @@
 {
-  "name": "mernwarden",
+  "name": "mernpass",
   "version": "1.0.0",
   "description": "password administration app",
   "main": "server.js",
