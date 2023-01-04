@@ -1,7 +1,11 @@
 const asyncHandler = require('express-async-handler')
 
+const Pass = require('../models/passModel')
+
 const getPasses = asyncHandler(async (req, res) => {
-    res.status(200).json({message: 'Get pass'})
+    const passes = await Pass.find()
+
+    res.status(200).json(passes)
 })
 
 const setPass = asyncHandler(async (req, res) => {
