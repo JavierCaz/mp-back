@@ -1,9 +1,12 @@
 const asyncHandler = require('express-async-handler')
 
 const Pass = require('../models/passModel')
+const User = require('../models/userModel')
 
 const getPasses = asyncHandler(async (req, res) => {
-    const passes = await Pass.find()
+    const passes = await Pass.find({
+        user: req.user.id
+    })
 
     res.status(200).json(passes)
 })
@@ -15,7 +18,8 @@ const setPass = asyncHandler(async (req, res) => {
     }
 
     const pass = await Pass.create({
-        text: req.body.text
+        text: req.body.text,
+        user: req.user.id
     })
 
     res.status(200).json(pass)
@@ -27,6 +31,18 @@ const updatePass = asyncHandler(async (req, res) => {
     if(!pass){
         res.status(400)
         throw new Error ('Pass not found')
+    }
+
+    const user = await User.findById(req.user.id)
+
+    if(!user){
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    if(pass.user.toString() !== user.id){
+        res.status(401)
+        throw new Error('User not authorized')
     }
 
     const updatedPass = await Pass.findByIdAndUpdate(req.params.id, req.body, {
@@ -42,6 +58,18 @@ const deletePass = asyncHandler(async (req, res) => {
     if(!pass){
         res.status(400)
         throw new Error ('Pass not found')
+    }
+
+    const user = await User.findById(req.user.id)
+
+    if(!user){
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    if(pass.user.toString() !== user.id){
+        res.status(401)
+        throw new Error('User not authorized')
     }
 
     await pass.remove()
