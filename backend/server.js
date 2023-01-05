@@ -10,5 +10,6 @@ const app = express()
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use('/api/passes', require('./routes/passRoutes'))
+app.use('/api/users', require('./routes/userRoutes'))
 
 app.listen(port, () => console.log(`Server started on port ${port}`))
