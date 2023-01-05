@@ -9,6 +9,10 @@ const getPasses = asyncHandler(async (req, res) => {
 })
 
 const setPass = asyncHandler(async (req, res) => {
+    if(!req.body.text){
+        res.status(400)
+        throw new Error('Pleas add a text field')
+    }
 
     const pass = await Pass.create({
         text: req.body.text
