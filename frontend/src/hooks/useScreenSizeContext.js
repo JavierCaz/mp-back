@@ -1,5 +1,5 @@
-const { useContext } = 'react'
-const { ScreenSizeContext } = 'context/ScreenSizeContext'
+import { useContext } from 'react'
+import ScreenSizeContext from "context/ScreenSizeContext"
 
 const useScreenSizeContext = () => useContext(ScreenSizeContext)
 
