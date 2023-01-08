@@ -6,3 +6,12 @@ export const screenSizes = {
     'tv': 1440,
     '$4k': 2500,
 }
+
+export const screenTypes = {
+    0: 'mobile',
+    480: 'tablet',
+    768: 'laptop',
+    1024: 'desktop',
+    1440: 'tv',
+    2500: '$4k',
+}
