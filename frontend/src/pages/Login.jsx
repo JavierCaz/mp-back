@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react"
 import { login, reset } from "features/auth/authSlice"
 import { useSelector, useDispatch } from "react-redux"
-import { useNavigate } from "react-router-dom"
 import { Snackbar, IconButton, Box, LinearProgress } from "@mui/material"
 import CloseIcon from '@mui/icons-material/Close';
 
@@ -16,24 +15,9 @@ const Login = () => {
     const [open, setOpen] = useState(false);
     const [snackMsg, setSnackMsg] = useState('');
 
-    const navigate = useNavigate()
     const dispatch = useDispatch()
 
-    const {user, isLoading, isError, isSuccess, message} = useSelector((state) => state.auth)
-
-    useEffect(() => {
-        if(isError){
-            setOpen(true);
-            setSnackMsg(message)
-        }
-
-        if(isSuccess || user){
-            navigate('/')
-        }
-
-        dispatch(reset())
-        
-    }, [user, isError, isSuccess, message, navigate, dispatch])
+    const { isLoading, isError, message } = useSelector((state) => state.auth)
 
     const onChange = (e) => {
         setFormData((prevState) => ({
@@ -60,6 +44,16 @@ const Login = () => {
 
         setOpen(false);
     };
+
+    useEffect(() => {
+        if(isError){
+            setOpen(true);
+            setSnackMsg(message)
+        }
+
+        dispatch(reset())
+        
+    }, [isError, message, dispatch])
 
     const action = (
         <>
