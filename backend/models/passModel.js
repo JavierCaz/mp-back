@@ -6,10 +6,19 @@ const passSchema = mongoose.Schema({
         required: true,
         ref: 'User'
     },
-    text: {
+    name: {
         type: String,
         required: true
-    }
+    },
+    uri: {
+        type: String,
+        required: true
+    },
+    password: {
+        type: String,
+        required: true
+    },
+    notes: String
 }, {
     timestapms: true,
 })

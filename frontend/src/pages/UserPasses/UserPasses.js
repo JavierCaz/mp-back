@@ -39,7 +39,7 @@ const UserPasses = () => {
     const getUserPasses = useCallback(async () => {
         startProgress()
         try {
-            const response = await axios.get('http://localhost:8080/passes')
+            const response = await axios.get('/api/passes')
             setUserPasses(response.data)
         } catch (error) {
             if (error.code === 'ERR_NETWORK')
@@ -65,7 +65,7 @@ const UserPasses = () => {
         if (actionType === 'PUT') {
             setUserPasses(userPasses => {
                 userPasses.forEach((userPass, i) => {
-                    if (userPass.id === pass.id) {
+                    if (userPass._id === pass._id) {
                         userPasses[i] = pass
                         return
                     }
@@ -81,7 +81,7 @@ const UserPasses = () => {
         startProgress()
         if (window.confirm('Are you sure you want to delete this password?')) {
             try {
-                await axios.delete(`http://localhost:8080/passes/${passId}`)
+                await axios.delete(`/api/passes/${passId}`)
                 getUserPasses()
             } catch (error) {
                 snackBar(error.message)
@@ -110,7 +110,7 @@ const UserPasses = () => {
                         uri={pass.uri}
                         notes={pass.notes}
                         handleEdit={() => { openPassForm(pass) }}
-                        handleDelete={() => { deletePass(pass.id) }}
+                        handleDelete={() => { deletePass(pass._id) }}
                     />
                 ))}
                 <PassForm {...{

@@ -68,21 +68,21 @@ const PassForm = (props) => {
         startProgress()
 
         try {
-            const actionType = formData.hasOwnProperty('id') ? 'PUT' : 'POST'
+            const actionType = formData.hasOwnProperty('_id') ? 'PUT' : 'POST'
             let response = {}
             if (actionType === 'PUT') {
-                response = await axios.put(`http://localhost:8080/passes/${formData.id}`, formData)
+                response = await axios.put(`/api/passes/${formData._id}`, formData)
             } else {
-                response = await axios.post('http://localhost:8080/passes', {
+                response = await axios.post('/api/passes', {
                     user: 1,
                     ...formData
                 })
             }
             onSave(response.data, actionType)
+            closePassForm()
         } catch (error) {
             snackBar(error.message)
         }
-        closePassForm()
         stopProgress()
     }
 
@@ -107,7 +107,7 @@ const PassForm = (props) => {
     /*----RENDER----*/
     useEffect(() => {
         setFormData(passObject)
-        setShowPassword(false)
+        setShowPassword(!formData._id)
         setFormErrors(initFormErrors)
         // eslint-disable-next-line
     }, [openForm])

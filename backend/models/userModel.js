@@ -1,4 +1,5 @@
 const mongoose = require('mongoose')
+const { Schema } = mongoose
 
 const userSchema = mongoose.Schema({
     name: {
@@ -13,7 +14,11 @@ const userSchema = mongoose.Schema({
     password: {
         type: String,
         required: [true, 'Pleade add a password']
-    }
+    },
+    passes: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Pass'
+    }]
 }, {
     timestapms: true
 })
