@@ -24,7 +24,7 @@ const UserPassItem = (props) => {
     } = props
 
     return (
-        <Grid item xs sm="auto">
+        <Grid item xs sm="auto" sx={{ maxWidth: { sm: 300 } }}>
             <Card sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' } }}>
                 <CardContent sx={{ flex: '1' }}>
                     <Typography gutterBottom variant="subtitle1" component="div">
