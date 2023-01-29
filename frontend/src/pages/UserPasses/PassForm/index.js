@@ -107,7 +107,7 @@ const PassForm = (props) => {
     /*----RENDER----*/
     useEffect(() => {
         setFormData(passObject)
-        setShowPassword(!formData._id)
+        setShowPassword(!passObject.hasOwnProperty('_id'))
         setFormErrors(initFormErrors)
         // eslint-disable-next-line
     }, [openForm])
