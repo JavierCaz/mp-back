@@ -32,6 +32,7 @@ const useScreenSize = () => {
 
     useEffect(() => {
         checkscreenSizes()
+        // eslint-disable-next-line
     }, [])
 
     return screenSize

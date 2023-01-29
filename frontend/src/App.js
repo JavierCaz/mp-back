@@ -2,14 +2,16 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import { useComposeProviders } from 'hooks'
 
 import { ScreenSizeContextProvider } from 'context/ScreenSizeContext'
+import { LoadingBarContextProvider } from 'context/LoadingBarContext'
 import { authRoutes, noAuthRoutes, routes } from 'routing/routes'
 import Layout from 'components/Layout'
 import AuthRoute from 'routing/AuthRoute'
 import NoAuthRoute from 'routing/NoAuthRoute'
+import { SnackBarContextProvider } from 'context/SnackBarContext'
 
 const App = () => {
   const RouterProviders = useComposeProviders(Router, Routes)
-  const AppProviders = useComposeProviders(ScreenSizeContextProvider)
+  const AppProviders = useComposeProviders(ScreenSizeContextProvider, LoadingBarContextProvider, SnackBarContextProvider)
 
   return (
     <AppProviders>
