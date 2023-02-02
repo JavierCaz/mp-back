@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from "axios"
 
 const API_URL = '/api/users/'
 
@@ -7,6 +7,7 @@ const register = async (userData) => {
 
     if(response.data){
         localStorage.setItem('user', JSON.stringify(response.data))
+        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
     }
 
     return response.data
@@ -17,6 +18,7 @@ const login = async (userData) => {
 
     if(response.data){
         localStorage.setItem('user', JSON.stringify(response.data))
+        axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.token}`
     }
 
     return response.data

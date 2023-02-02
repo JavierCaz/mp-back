@@ -1,42 +1,38 @@
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import { useComposeProviders } from 'hooks'
 
-import Header from 'components/Header'
-import { Home, Login, Register } from 'pages'
 import { ScreenSizeContextProvider } from 'context/ScreenSizeContext'
-
-const pages = [
-  {
-    name: 'Home',
-    route: '/', 
-    element: <Home />
-  },
-  {
-    name: 'Login',
-    route: '/login',
-    element: <Login />
-  },
-  {
-    name: 'Register',
-    route: '/register', 
-    element: <Register />
-  },
-]
+import { LoadingBarContextProvider } from 'context/LoadingBarContext'
+import { authRoutes, noAuthRoutes, routes } from 'routing/routes'
+import Layout from 'components/Layout'
+import AuthRoute from 'routing/AuthRoute'
+import NoAuthRoute from 'routing/NoAuthRoute'
+import { SnackBarContextProvider } from 'context/SnackBarContext'
 
 const App = () => {
-  const links = pages.map(page => <Link key={page.name} to={page.route}>{page.name}</Link>)
-
-  // const RouterProviders = useComposeProviders(Router, Routes)
-  const AppProviders = useComposeProviders(ScreenSizeContextProvider)
+  const RouterProviders = useComposeProviders(Router, Routes)
+  const AppProviders = useComposeProviders(ScreenSizeContextProvider, LoadingBarContextProvider, SnackBarContextProvider)
 
   return (
     <AppProviders>
-      <Router>
-        <Header pages={links} />
-        <Routes>
-          {pages.map(page => <Route key={page.name} path={page.route} element={page.element} />)}
-        </Routes>
-      </Router>
+      <RouterProviders>
+        <Route exact path='/' element={<Layout />}>
+          {/* Protected routes, accessible with authentication */}
+          <Route element={<AuthRoute />}>
+            {authRoutes.map(routeName =>
+              <Route key={routeName} path={routes[routeName].path} element={routes[routeName].element} />
+            )}
+          </Route>
+          {/* Unprotected routes, accessible if not exists authentication */}
+          <Route element={<NoAuthRoute />}>
+            {noAuthRoutes.map(routeName =>
+              <Route key={routeName} path={routes[routeName].path} element={routes[routeName].element} />
+            )}
+          </Route>
+        </Route>
+        {/* Not existing routes */}
+        <Route path="*" element={<Navigate to={routes.home.path} replace />} />
+      </RouterProviders>
     </AppProviders>
   )
 }
