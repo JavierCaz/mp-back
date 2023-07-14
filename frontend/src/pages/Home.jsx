@@ -1,8 +1,5 @@
-import React from 'react'
-
 import { Typography } from '@mui/material'
 import { Box } from '@mui/system'
-// import { Passwords } from 'pages'
 import UserPasses from './UserPasses/UserPasses'
 
 const Home = () => {
@@ -12,12 +9,11 @@ const Home = () => {
                 display: 'grid',
                 maxWidth: '80%',
                 margin: 'auto',
-                justifyItems: 'center',
+                // justifyItems: 'center',
                 gap: '1rem',
             }}
         >
-            <Typography variant='h4'>Home Page</Typography>
-            {/* <Passwords /> */}
+            <Typography sx={{ textAlign: 'center' }} variant='h4'>Home Page</Typography>
             <UserPasses />
         </Box>
     )
