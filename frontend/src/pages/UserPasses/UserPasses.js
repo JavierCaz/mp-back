@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import { useLoadingBarContext, useSnackBarContext } from 'hooks';
 
-import { Grid, IconButton } from '@mui/material';
+import { Grid, IconButton, TextField } from '@mui/material';
 import UserPassItem from './UserPassItem';
 import PassForm from './PassForm';
 import { Add } from '@mui/icons-material';
@@ -28,6 +28,7 @@ const userPassesMock = [{
 const UserPasses = () => {
     /*----STATE----*/
     const [userPasses, setUserPasses] = useState([])
+    const [filteredPasses, setFilteredPasses] = useState([])
     const [openForm, setOpenForm] = useState(false)
     const [passObject, setPassObject] = useState()
 
@@ -41,6 +42,7 @@ const UserPasses = () => {
         try {
             const response = await axios.get('/api/passes')
             setUserPasses(response.data)
+            setFilteredPasses(response.data)
         } catch (error) {
             if (error.code === 'ERR_NETWORK')
                 snackBar('Error fetching user passwords. You are using mock object.')
@@ -90,6 +92,12 @@ const UserPasses = () => {
         stopProgress()
     }, [getUserPasses, snackBar, startProgress, stopProgress])
 
+    const searchChange = (e) => {
+        let filter = e.target.value;
+
+        filter ? setFilteredPasses(userPasses.filter(u => u.name.includes(filter))) : setFilteredPasses(userPasses);
+    }
+
     /*----EFFECT----*/
     useEffect(() => {
         getUserPasses()
@@ -102,8 +110,9 @@ const UserPasses = () => {
             <IconButton size="large" color="lightgreen" sx={{ justifySelf: 'end' }} onClick={() => openPassForm()}>
                 <Add fontSize="large" sx={{ color: '#00FF00' }} />
             </IconButton>
+            <TextField id="standard-basic" label="Search" variant="standard" onChange={searchChange}/>
             <Grid container spacing={2}>
-                {userPasses.map((pass, i) => (
+                {filteredPasses.map((pass, i) => (
                     <UserPassItem
                         key={i}
                         name={pass.name}
