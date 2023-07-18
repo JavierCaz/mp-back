@@ -1,0 +1,44 @@
+{
+  "passes": [
+    {
+      "user": 1,
+      "uri": "www.google.com",
+      "password": "zmaod0gnu383445vyuf",
+      "notes": "google notes",
+      "name": "Google",
+      "id": 1
+    },
+    {
+      "user": 2,
+      "uri": "https://www.facebook.com",
+      "password": "zmaod0gnu383445vyuf",
+      "notes": "facebook notes",
+      "name": "Facebook",
+      "id": 2
+    },
+    {
+      "user": 3,
+      "uri": "https://www.youtube.com",
+      "password": "zmaod0gnu383445vyuf",
+      "notes": "youtube notes",
+      "name": "YouTube",
+      "id": 3
+    },
+    {
+      "user": 1,
+      "password": "suisdag78sahsadb",
+      "uri": "https://twitter.com",
+      "notes": "google notes",
+      "name": "Twitter",
+      "id": 4
+    },
+    {
+      "user": 1,
+      "name": "adrian",
+      "uri": "https://www.a.com",
+      "password": "asd",
+      "notes": "a.com notes\n",
+      "id": 5
+    }
+  ]
+}
