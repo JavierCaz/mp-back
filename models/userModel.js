@@ -15,6 +15,12 @@ const userSchema = mongoose.Schema({
         type: String,
         required: [true, 'Pleade add a password']
     },
+    pin: {
+        type: String,
+    },
+    pinLastVerified: {
+        type: Date
+    },
     passes: [{
         type: Schema.Types.ObjectId,
         ref: 'Pass'
