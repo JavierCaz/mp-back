@@ -81,9 +81,38 @@ const generateToken = (id) => {
     })
 }
 
+const updateUser = asyncHandler(async (req, res) => {
+    const usersEmail = await User.find({ email: req.body.email })
+    const user = await User.findById(req.user._id)
+
+    if (usersEmail.lenght > 1) {
+        res.status(401)
+        throw new Error('Email already in use')
+    }
+
+    if (!req.user) {
+        res.status(401)
+        throw new Error('User not found')
+    }
+
+    if (user.id !== req.user.id) {
+        res.status(401)
+        throw new Error('User not authorized')
+    }
+
+    try {
+        let response = await User.findByIdAndUpdate(user.id, req.body, { new: true })
+        res.status(200).json(response)
+    } catch (e) {
+        res.status(401)
+        throw new Error(e)
+    }
+})
+
 module.exports = {
     registerUser,
     loginUser,
     getMe,
-    setPin
+    setPin,
+    updateUser
 }

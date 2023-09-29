@@ -13,7 +13,7 @@ const getPasses = asyncHandler(async (req, res) => {
     res.status(200).json(passes)
 })
 
-const getPass = asyncHandler(async (req, res) => {
+const getPassword = asyncHandler(async (req, res) => {
     const { id } = req.params
     const { pin } = req.query
 
@@ -77,9 +77,7 @@ const updatePass = asyncHandler(async (req, res) => {
         req.body.password = encryptPassword(req.body.password)
     }
 
-    const updatedPass = await Pass.findByIdAndUpdate(req.params.id, req.body, {
-        new: true
-    })
+    const updatedPass = await Pass.findByIdAndUpdate(req.params.id, req.body, { new: true })
 
     res.status(200).json(updatedPass)
 })
@@ -136,5 +134,5 @@ module.exports = {
     setPass,
     updatePass,
     deletePass,
-    getPass,
+    getPassword,
 }
