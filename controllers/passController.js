@@ -42,14 +42,15 @@ const setPass = asyncHandler(async (req, res) => {
     //     throw new Error('Pleas add a text field')
     // }
 
-    const { name, password, uri, notes } = req.body
+    const { name, password, uri, notes, favorite } = req.body
 
     const pass = await Pass.create({
         user: req.user.id,
         name,
         password: encryptPassword(password),
         uri,
-        notes
+        notes,
+        favorite
     })
 
     res.status(200).json(pass)

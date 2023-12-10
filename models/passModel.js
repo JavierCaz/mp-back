@@ -18,7 +18,13 @@ const passSchema = mongoose.Schema({
         type: String,
         required: true
     },
-    notes: String
+    notes: {
+        type: String
+    },
+    favorite: {
+        type: Boolean,
+        required: true
+    }
 }, {
     timestapms: true,
 })
