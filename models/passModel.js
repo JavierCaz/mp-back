@@ -12,7 +12,9 @@ const passSchema = mongoose.Schema({
     },
     uri: {
         type: String,
-        required: true
+    },
+    username: {
+        type: String,
     },
     password: {
         type: String,
